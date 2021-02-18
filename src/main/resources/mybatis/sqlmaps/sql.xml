@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.myapps">
+
+	<select id="getAccountList" parameterType="string" resultType="com.mycompany.myapps.model.AccountInfo" >
+		SELECT *
+		FROM account_info
+	</select>
+	
+	<select id="logIn" parameterType="string" resultType="com.mycompany.myapps.model.AccountInfo" >
+		SELECT *
+		FROM account_info
+		WHERE email=#{email}
+	</select>
+	
+	<select id="checkEmail" parameterType="string" resultType="int" >
+		SELECT count(*)
+		FROM account_info
+		WHERE email=#{email}
+	</select>
+	
+	
+	<insert id="createAccount" parameterType="com.mycompany.myapps.model.AccountInfo" >
+		INSERT 
+		INTO account_info
+		(email, password, phone)
+		VALUES
+		(#{email}, #{password}, #{phone})
+		
+	</insert>
+
+</mapper>
