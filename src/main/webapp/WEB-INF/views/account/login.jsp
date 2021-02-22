@@ -43,10 +43,9 @@
 				password: password
 			},
 			success: function(data){
-				//console.log("data", data);
-				if(data="success"){
+				if(data==="success"){
 					alert("로그인 성공");
-					location.href="/myapps/login"
+					location.href="/myapps";
 				} else{
 					alert("로그인 실패");
 				}

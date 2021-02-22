@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.myapps.dao.AccountDao;
 import com.mycompany.myapps.model.AccountInfo;
+import com.mycompany.myapps.model.LogInHistory;
 import com.mycompany.myapps.service.AccountService;
 
 @Service("accountService")
@@ -21,9 +22,9 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public AccountInfo logIn(String email, String password) {
+	public AccountInfo logIn(AccountInfo info) {
 		// TODO Auto-generated method stub
-		return accountDao.logIn(email, password);
+		return accountDao.logIn(info);
 	}
 
 	@Override
@@ -37,7 +38,22 @@ public class AccountServiceImpl implements AccountService{
 		// TODO Auto-generated method stub
 		return accountDao.createAccount(info);
 	}
+
+	@Override
+	public int createLogInHistory(LogInHistory history) {
+		// TODO Auto-generated method stub
+		return accountDao.createLogInHistory(history);
+	}
 	
-	
+	@Override
+	public List<LogInHistory> getLogInHistory(){
+		return accountDao.getLogInHistory();
+	}
+
+	@Override
+	public List<LogInHistory> getSearchedHistory(LogInHistory history) {
+		// TODO Auto-generated method stub
+		return accountDao.getSearchedHistory(history);
+	}
 
 }
