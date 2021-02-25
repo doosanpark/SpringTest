@@ -10,7 +10,7 @@
   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
   crossorigin="anonymous"></script>
 <style>
-	html{
+	html {
 		height: 100%;
 	}
 	body {
@@ -21,16 +21,16 @@
 		justify-content: center;
 	}
 
-	.btns{
+	.btns {
 		display: flex;
 		justify-content: space-between;
 	}
 
-	div{
+	div {
 		margin: 3px;
 	}
 	
-	button{
+	button {
 		margin: 3px;
 	}
 </style>
@@ -41,7 +41,6 @@
 		
 		var email = document.getElementById('email').value;
 		
-		
 		$.ajax({
 			url: "/myapps/idcheck",
 			type: "POST",
@@ -51,16 +50,14 @@
 			success: function(data) {
 				if(data==="t"){
 					alert("사용 가능");	
-				}else {
+				} else {
 					alert("이메일 중복");
 				}
 			},
 			error: function(request, status, error) {
 				alert("에러");	
 			}
-			
 		})
-		
 	}
 	
 	function signUp(){
@@ -79,17 +76,22 @@
 			},
 			success: function(data) {
 				if(data==="s"){
-					alert("회원 등록");	
-				}else {
+					alert("회원 등록");
+					location.href="/myapps/login";
+				} else if(data==="f"){
 					alert("등록 실패");
+				} else if(data==="e"){
+					alert("이메일 형식이 틀려요");
+				} else if(data==="p"){
+					alert("비밀번호 형식이 틀려요");
+				} else if(data==="d"){
+					alert("이미 가입된 계정이에요");
 				}
 			},
 			error: function(request, status, error) {
 				alert("에러");	
 			}
-			
 		})
-		
 	}
 	
 </script>
@@ -112,7 +114,6 @@
 	
 	<div class="btns">
 		<button onclick="signUp();">회원가입</button>
-		<button onclick="check();">중복 체크</button>
 	</div>
 	
 	

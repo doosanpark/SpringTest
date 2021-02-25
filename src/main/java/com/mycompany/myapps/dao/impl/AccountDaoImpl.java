@@ -62,6 +62,4 @@ public class AccountDaoImpl implements AccountDao {
 		return sqlSession.selectList("getSearchedHistory", history);
 	}
 
-	
-
 }

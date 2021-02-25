@@ -1,8 +1,7 @@
 package com.mycompany.myapps.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,34 +21,13 @@ public class AccountController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String logIn() {
-
 		return "account/login";
 	}
-
 
 	// 회원가입 화면
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signUp() {
 		return "account/signup";
-	}
-
-	// 이메일 중복 확인
-	@ResponseBody
-	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
-	public String idCheck(AccountInfo info) {
-
-		int cnt = 0;
-		if (info != null) {
-			// Email 데이터 받기
-			String email = info.getEmail();
-			cnt = accountService.checkEmail(email);
-		}
-
-		if (cnt > 0) {
-			return "f";
-		} else {
-			return "t";
-		}
 	}
 
 	// 회원 등록
@@ -58,15 +36,48 @@ public class AccountController {
 	public String createAccount(AccountInfo info) {
 
 		//System.out.println("GET info : " + info);
+		
+		String emailPattern ="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-z]{2,6}";
+		Matcher emailMatcher = Pattern.compile(emailPattern).matcher(info.getEmail());
+		boolean emailMat = emailMatcher.matches();
+		
+		String pwPattern = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{9,12}$";
+		Matcher pwMatcher = Pattern.compile(pwPattern).matcher(info.getPassword());
+		boolean pwMat = pwMatcher.matches();
+
 		int cnt = 0;
+		
 		if (info != null) {
 			// Email 데이터 받기
+			String email = info.getEmail();
+			cnt = accountService.checkEmail(email);
+		}
+
+		if (cnt > 0) {
+			// 이메일 중복이면 'd'uplicated invalid
+			return "d";
+		}
+		
+		if(!emailMat) {
+			// email 형식이 안맞으면 'e'mail invalid
+			return "e";
+		}
+		
+		if (!pwMat) {
+			// 비밀번호 형식이 안맞으면 'p'assword invalid
+			return "p";
+		} 
+		
+		if (info != null) {
+			// 회원 등록
 			cnt = accountService.createAccount(info);
 		}
 
 		if (cnt > 0) {
+			// 회원가입 성공 's'uccess
 			return "s";
 		} else {
+			// 회원가입 실패 'f'ail
 			return "f";
 		}
 
@@ -81,24 +92,23 @@ public class AccountController {
 
 		// 로그인 성공 여부 판단
 		String loggedIn = "fail";
-		int cnt = 0;
 		
 		LogInHistory history = new LogInHistory();
-		
+
 		if (accountInfo != null) {
 			loggedIn = "success";
-			
+
 			history.setEmail(info.getEmail());
 			history.setAccess('y');
-			
-			cnt = accountService.createLogInHistory(history);
-		}	else {
+
+			accountService.createLogInHistory(history);
+		} else {
 			history.setEmail(info.getEmail());
 			history.setAccess('n');
-			
-			cnt = accountService.createLogInHistory(history);
+
+			accountService.createLogInHistory(history);
 		}
-		
+
 		return loggedIn;
 	}
 }
