@@ -1,7 +1,5 @@
 package com.mycompany.myapps.model;
 
-import java.util.Date;
-
 public class LogInHistory {
 	String email;
 	char access;

@@ -45,16 +45,24 @@
 		ORDER BY date DESC
 	</select>
 	
-	<select id="getSearchedHistory" parameterType="com.mycompany.myapps.model.LogInHistory" resultType="com.mycompany.myapps.model.LogInHistory">
+	<select id="getPeriodHistory" parameterType="com.mycompany.myapps.model.LogInHistory" resultType="com.mycompany.myapps.model.LogInHistory">
 		SELECT *
 		FROM login_history
 		WHERE email
 		LIKE '%' #{email} '%'
-		AND access=#{access}
 		AND date
 		BETWEEN #{date1} AND #{date2}
 		ORDER BY date DESC
 	</select>
 	
-
+	<select id="getSearchedHistory" parameterType="com.mycompany.myapps.model.LogInHistory" resultType="com.mycompany.myapps.model.LogInHistory">
+		SELECT *
+		FROM login_history
+		WHERE email
+		LIKE '%' #{email} '%'
+		AND date 
+		LIKE '%' #{date1} '%' 
+		ORDER BY date DESC
+	</select>
+	
 </mapper>

@@ -24,9 +24,12 @@ public interface AccountService {
 	public int createLogInHistory(LogInHistory history);
 
 	/* 로그인 히스토리 */
-	// 전체 리스트 검색
+	//전체 리스트 검색
 	public List<LogInHistory> getLogInHistory();
-
-	// 조건부 리스트 검색
+	
+	//조건부 기간의 리스트 검색	
+	public List<LogInHistory> getPeriodHistory(LogInHistory history);
+	
+	//조건부 리스트 검색	
 	public List<LogInHistory> getSearchedHistory(LogInHistory history);
 }

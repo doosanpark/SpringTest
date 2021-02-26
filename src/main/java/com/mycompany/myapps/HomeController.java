@@ -41,31 +41,6 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		// 히스토리 로컬 데이터 저장 정보
-//		
-//		String loginHistoryFilePath = "C:\\Users\\bbd03\\Documents\\" 
-//				+ "workspace-spring-tool-suite-4-4.9.0.RELEASE\\"
-//				+ "SpringTest\\stream.txt";
-//		
-//		String loginHistory = "";
-//		try {
-//			FileInputStream fis = new FileInputStream(loginHistoryFilePath);
-//			BufferedInputStream bis = new BufferedInputStream(fis);
-//			
-//			while(true) {
-//				int i = fis.read();
-//				if(i==-1) {
-//					break;
-//				}
-//				loginHistory += (char) i;
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//		}
-//		//System.out.println(loginHistory);
-//		
-		
 		List<LogInHistory> loginHistory = accountService.getLogInHistory();
 		
 		model.addAttribute("serverTime", formattedDate);
@@ -74,15 +49,22 @@ public class HomeController {
 		return "home";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/getDataFromPeriod", method = RequestMethod.POST)
+	public List<LogInHistory> getSearchedDataFromPeriod(LogInHistory loginHistory) {
+		//System.out.println(loginHistory);
+		List<LogInHistory> searchedHistory = accountService.getPeriodHistory(loginHistory);
+		
+		return searchedHistory;
+	}
 	
 	@ResponseBody
-	@RequestMapping(value="/getData", method = RequestMethod.POST)
+	@RequestMapping(value="/getDataFromSearched", method = RequestMethod.POST)
 	public List<LogInHistory> getSearchedData(LogInHistory loginHistory) {
-		//System.out.println(loginHistory);
+		System.out.println("login"+loginHistory);
 		List<LogInHistory> searchedHistory = accountService.getSearchedHistory(loginHistory);
 		
 		return searchedHistory;
 	}
 	
-
 }

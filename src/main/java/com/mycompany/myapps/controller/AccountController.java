@@ -35,8 +35,6 @@ public class AccountController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createAccount(AccountInfo info) {
 
-		//System.out.println("GET info : " + info);
-		
 		String emailPattern ="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-z]{2,6}";
 		Matcher emailMatcher = Pattern.compile(emailPattern).matcher(info.getEmail());
 		boolean emailMat = emailMatcher.matches();
@@ -66,8 +64,8 @@ public class AccountController {
 		if (!pwMat) {
 			// 비밀번호 형식이 안맞으면 'p'assword invalid
 			return "p";
-		} 
-		
+		}
+
 		if (info != null) {
 			// 회원 등록
 			cnt = accountService.createAccount(info);
@@ -92,20 +90,17 @@ public class AccountController {
 
 		// 로그인 성공 여부 판단
 		String loggedIn = "fail";
-		
+
 		LogInHistory history = new LogInHistory();
 
 		if (accountInfo != null) {
 			loggedIn = "success";
-
 			history.setEmail(info.getEmail());
 			history.setAccess('y');
-
 			accountService.createLogInHistory(history);
 		} else {
 			history.setEmail(info.getEmail());
 			history.setAccess('n');
-
 			accountService.createLogInHistory(history);
 		}
 

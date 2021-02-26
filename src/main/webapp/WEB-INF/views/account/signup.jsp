@@ -10,9 +10,11 @@
   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
   crossorigin="anonymous"></script>
 <style>
+
 	html {
 		height: 100%;
 	}
+	
 	body {
 		height: 100%;
 		display: flex;
@@ -33,6 +35,7 @@
 	button {
 		margin: 3px;
 	}
+	
 </style>
 
 <script>

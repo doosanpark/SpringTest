@@ -49,10 +49,17 @@ public class AccountServiceImpl implements AccountService{
 	public List<LogInHistory> getLogInHistory(){
 		return accountDao.getLogInHistory();
 	}
+	
+	@Override
+	public List<LogInHistory> getPeriodHistory(LogInHistory history) {
+		// TODO Auto-generated method stub
+		return accountDao.getPeriodHistory(history);
+	}
 
 	@Override
 	public List<LogInHistory> getSearchedHistory(LogInHistory history) {
 		// TODO Auto-generated method stub
+		
 		return accountDao.getSearchedHistory(history);
 	}
 

@@ -57,9 +57,16 @@ public class AccountDaoImpl implements AccountDao {
 	}
 
 	@Override
+	public List<LogInHistory> getPeriodHistory(LogInHistory history) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPeriodHistory", history);
+	}
+	
+	@Override
 	public List<LogInHistory> getSearchedHistory(LogInHistory history) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getSearchedHistory", history);
 	}
+
 
 }

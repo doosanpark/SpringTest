@@ -46,6 +46,9 @@
 				if(data==="success"){
 					alert("로그인 성공");
 					location.href="/myapps";
+					
+					document.cookie="email="+email
+					
 				} else{
 					alert("로그인 실패");
 				}
