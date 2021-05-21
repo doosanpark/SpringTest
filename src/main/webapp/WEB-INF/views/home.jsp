@@ -32,13 +32,6 @@
 <script type="text/javascript"
 	src="/myapps/resources/js/jqGrid/jQuery.jqGrid.setColWidth.js"></script>
 
-<!-- 차트 -->
-<script type="text/javascript"
-	src="/myapps/resources/js/chart/fbarChart.js"></script>
-<script type="text/javascript"
-	src="/myapps/resources/js/chart/fgridChart.js"></script>
-<script type="text/javascript"
-	src="/myapps/resources/js/chart/fpieChart.js"></script>
 
 <!-- 달력 -->
 <link rel="stylesheet"
@@ -556,8 +549,7 @@
 	<!-- 원형 차트 -->
 	<script>
 		function fpieChart(title, emailDatas) {
-
-
+			
 			/* Pie Chart 구현 코드 */
 			var pieCtx = document.getElementById('pieChart').getContext('2d');
 			var myPieChart = new Chart(pieCtx, {
@@ -585,14 +577,9 @@
 					plugins: {
 						datalabels: {
 							color: 'black',
-							labels: {
-								title: {
-									font: {
-										weight: 'bold',
-										size: 30
-									}
-								},
-								fontColor: 'red'
+							font: {
+								weight: 'bold',
+								size: 30,
 							}
 						}
 					},
@@ -603,6 +590,7 @@
 
 			function handleClick(evt) {
 				var activeElement = myPieChart.getElementAtEvent(evt);
+				
 				// 배열의 index activeElement[0]._index
 				let index = activeElement[0]._index;
 				let email = Object.keys(emailDatas)[index];
