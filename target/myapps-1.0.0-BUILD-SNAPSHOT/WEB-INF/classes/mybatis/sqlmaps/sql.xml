@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.myapps">
+
+	<select id="getAccountList" parameterType="string" resultType="com.mycompany.myapps.model.AccountInfo" >
+		SELECT *
+		FROM account_info
+	</select>
+	
+	<select id="logIn" parameterType="com.mycompany.myapps.model.AccountInfo" resultType="com.mycompany.myapps.model.AccountInfo" >
+		SELECT *
+		FROM account_info
+		WHERE email=#{email}
+		AND password=#{password}
+	</select>
+	
+	<select id="checkEmail" parameterType="string" resultType="int" >
+		SELECT count(*)
+		FROM account_info
+		WHERE email=#{email}
+	</select>
+	
+	
+	<insert id="createAccount" parameterType="com.mycompany.myapps.model.AccountInfo" >
+		INSERT 
+		INTO account_info
+		(email, password, phone)
+		VALUES
+		(#{email}, #{password}, #{phone})
+		
+	</insert>
+
+	<insert id="createLogInHistory" parameterType="com.mycompany.myapps.model.LogInHistory">
+		INSERT 
+		INTO login_history
+		(email, access)
+		VALUES
+		(#{email}, #{access})
+	</insert> 
+	
+	<select id="getLogInHistory" resultType="com.mycompany.myapps.model.LogInHistory">
+		SELECT *
+		FROM login_history
+		ORDER BY date DESC
+	</select>
+	
+	<select id="getPeriodHistory" parameterType="com.mycompany.myapps.model.LogInHistory" resultType="com.mycompany.myapps.model.LogInHistory">
+		SELECT *
+		FROM login_history
+		WHERE email
+		LIKE '%' #{email} '%'
+		AND date
+		BETWEEN #{date1} AND #{date2}
+		ORDER BY date DESC
+	</select>
+	
+	<select id="getSearchedHistory" parameterType="com.mycompany.myapps.model.LogInHistory" resultType="com.mycompany.myapps.model.LogInHistory">
+		SELECT *
+		FROM login_history
+		WHERE email
+		LIKE '%' #{email} '%'
+		AND date 
+		LIKE '%' #{date1} '%' 
+		ORDER BY date DESC
+	</select>
+	
+</mapper>
